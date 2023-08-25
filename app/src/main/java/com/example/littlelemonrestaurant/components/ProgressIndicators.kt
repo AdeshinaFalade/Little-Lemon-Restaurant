@@ -6,8 +6,15 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -60,5 +67,27 @@ fun AlternatingSwappingCircles(
             center = Offset(centerX + secondCircleOffset, centerY),
             radius = secondCircleRadius
         )
+    }
+}
+
+@Composable
+fun DisplayLoader(modifier: Modifier = Modifier) {
+    Surface(
+        color = Color.Black.copy(alpha = 0.6f),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0x00000000))
+                .clickable(
+                    interactionSource = MutableInteractionSource(),
+                    indication = null,
+                    onClick = {}
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            AlternatingSwappingCircles(modifier = modifier)
+        }
     }
 }

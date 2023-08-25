@@ -52,6 +52,7 @@ android {
 }
 
 dependencies {
+    val ktorVersion = "2.3.2"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -64,6 +65,10 @@ dependencies {
     implementation("io.ktor:ktor-client-android:2.3.2")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.2")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.2")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.0")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     testImplementation("junit:junit:4.13.2")
