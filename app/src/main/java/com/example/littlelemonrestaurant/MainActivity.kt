@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -27,7 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-//    val appDatabase = (application as MyApplication).database
     private val appDatabase by lazy {
         Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database").build()
     }
@@ -35,10 +33,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-//        val homeViewModel: HomeViewModel by viewModels {
-//            HomeViewModelFactory(appDatabase.menuItemDao())
-//        }
 
         setContent {
             LittleLemonRestaurantTheme {
@@ -61,7 +55,6 @@ class MainActivity : ComponentActivity() {
 
         }
     }
-
 
     private val httpClient = HttpClient(Android) {
         install(ContentNegotiation) {

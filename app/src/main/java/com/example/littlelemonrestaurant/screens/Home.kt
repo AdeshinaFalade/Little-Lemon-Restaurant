@@ -18,31 +18,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import androidx.navigation.NavHostController
-import com.example.littlelemonrestaurant.HomeViewModel
 import com.example.littlelemonrestaurant.MenuItemRoom
-import com.example.littlelemonrestaurant.MenuNetworkData
 import com.example.littlelemonrestaurant.R
-import com.example.littlelemonrestaurant.components.DisplayLoader
 
 @Composable
 fun Home(
     navController: NavHostController,
     menuItems: List<MenuItemRoom>
 ){
-//    val uiState by viewModel.uiState.collectAsState()
-//    val menuItems by viewModel.menuItemsRoom.observeAsState(emptyList())
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -75,9 +65,6 @@ fun Home(
             MenuItemsList(menuItems)
         }
 
-//        if(uiState.isLoading){
-//            DisplayLoader()
-//        }
     }
 }
 
