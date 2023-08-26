@@ -38,11 +38,10 @@ import com.example.littlelemonrestaurant.components.DisplayLoader
 @Composable
 fun Home(
     navController: NavHostController,
-    menuItems: List<MenuItemRoom>
+    viewModel: HomeViewModel
 ){
-//    val uiState by viewModel.uiState.collectAsState()
-//    val menuItems by viewModel.menuItemsRoom.observeAsState(emptyList())
-
+    val menuItems by viewModel.menuItems.observeAsState(emptyList())
+    val loading by viewModel.loading.collectAsState()
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -75,9 +74,9 @@ fun Home(
             MenuItemsList(menuItems)
         }
 
-//        if(uiState.isLoading){
-//            DisplayLoader()
-//        }
+        if(loading){
+            DisplayLoader()
+        }
     }
 }
 

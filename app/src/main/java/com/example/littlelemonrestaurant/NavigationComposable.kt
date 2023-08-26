@@ -2,6 +2,8 @@ package com.example.littlelemonrestaurant
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -16,9 +18,11 @@ import com.example.littlelemonrestaurant.screens.Profile
 @Composable
 fun MyNavigation(
     navController: NavHostController,
-    menuItems: List<MenuItemRoom>
+    appDatabase: AppDatabase
 ) {
     val context = LocalContext.current
+
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(appDatabase))
 
     val sharedPref = context.getSharedPreferences(LITTLE_LEMON, Context.MODE_PRIVATE)
     val isLoggedIn = sharedPref.getBoolean(LOGIN_STATUS, false)
@@ -26,7 +30,7 @@ fun MyNavigation(
     val startDestination = if (isLoggedIn) Home.route else Onboarding.route
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Home.route) {
-            Home(navController, menuItems)
+            Home(navController, viewModel)
         }
         composable(Profile.route) {
             Profile(navController)
