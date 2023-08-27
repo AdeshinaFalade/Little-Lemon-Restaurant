@@ -42,8 +42,10 @@ import com.example.littlelemonrestaurant.components.FIRST_NAME
 import com.example.littlelemonrestaurant.components.LAST_NAME
 import com.example.littlelemonrestaurant.components.LITTLE_LEMON
 import com.example.littlelemonrestaurant.components.LOGIN_STATUS
+import com.example.littlelemonrestaurant.ui.theme.DeepGreen
 import com.example.littlelemonrestaurant.ui.theme.Karla
 import com.example.littlelemonrestaurant.ui.theme.Markazi
+import com.example.littlelemonrestaurant.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +89,7 @@ fun Onboarding(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp)
-                    .background(color = Color(0xFF495E57)), contentAlignment = Alignment.Center
+                    .background(color = DeepGreen), contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = "Let's get to know you",
@@ -169,7 +171,7 @@ fun Onboarding(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
+                colors = ButtonDefaults.buttonColors(containerColor = Yellow),
                 shape = RoundedCornerShape(5.dp)
             ) {
                 Text(text = "Register", color = Color.Black)

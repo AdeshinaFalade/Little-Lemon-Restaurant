@@ -27,9 +27,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private val appDatabase by lazy {
-        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database").build()
-    }
+//    private val appDatabase by lazy {
+//        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database").build()
+//    }
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    MyNavigation(navController = navController, appDatabase = appDatabase)
+                    MyNavigation(navController = navController)
                 }
             }
 

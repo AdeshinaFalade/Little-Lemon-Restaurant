@@ -28,6 +28,8 @@ interface MenuItemDao {
     fun insertAll(vararg menuItems: MenuItemRoom)
     @Query("SELECT (SELECT COUNT(*) FROM MenuItemRoom) == 0")
     fun isEmpty(): Boolean
+    @Query("SELECT * FROM MenuItemRoom WHERE category LIKE :category")
+    fun getByCategory(category: String): LiveData<List<MenuItemRoom>>
 }
 
 @Database(entities = [MenuItemRoom::class], version = 1)

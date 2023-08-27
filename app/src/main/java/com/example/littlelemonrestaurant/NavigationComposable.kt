@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.room.Room
 import com.example.littlelemonrestaurant.components.LITTLE_LEMON
 import com.example.littlelemonrestaurant.components.LOGIN_STATUS
 import com.example.littlelemonrestaurant.screens.Home
@@ -17,12 +18,14 @@ import com.example.littlelemonrestaurant.screens.Profile
 
 @Composable
 fun MyNavigation(
-    navController: NavHostController,
-    appDatabase: AppDatabase
+    navController: NavHostController
 ) {
     val context = LocalContext.current
 
-    val viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(appDatabase))
+    val database by lazy {
+        Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "database").build()
+    }
+    val viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory(database))
 
     val sharedPref = context.getSharedPreferences(LITTLE_LEMON, Context.MODE_PRIVATE)
     val isLoggedIn = sharedPref.getBoolean(LOGIN_STATUS, false)

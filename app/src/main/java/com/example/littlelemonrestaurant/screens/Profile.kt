@@ -2,6 +2,8 @@ package com.example.littlelemonrestaurant.screens
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -18,7 +21,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -60,7 +65,15 @@ fun Profile(
                     .size(height = 80.dp, width = 185.dp)
                     .padding(vertical = 20.dp)
             )
-            Spacer(modifier = Modifier.height(70.dp))
+            Image(
+                painter = painterResource(id = R.drawable.profile),
+                contentDescription = "profile",
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .border(shape = CircleShape, width = 1.dp, color = Color.Black)
+            )
             Text(
                 text = "Personal Information",
                 fontSize = 20.sp,
@@ -68,7 +81,7 @@ fun Profile(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 50.dp)
+                    .padding(horizontal = 16.dp, vertical = 30.dp)
             )
             OutlinedTextField(
                 value = firstName,
