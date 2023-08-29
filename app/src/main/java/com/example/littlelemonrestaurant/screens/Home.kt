@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -65,8 +66,7 @@ import com.example.littlelemonrestaurant.ui.theme.Yellow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
-    navController: NavHostController,
-    viewModel: HomeViewModel
+    navController: NavHostController, viewModel: HomeViewModel
 ) {
     var selectedFilterType by remember {
         mutableStateOf<FilterType>(FilterType.All)
@@ -104,8 +104,7 @@ fun Home(
                         .padding(vertical = 20.dp)
                         .align(Alignment.Center)
                 )
-                Image(
-                    painter = painterResource(id = R.drawable.profile),
+                Image(painter = painterResource(id = R.drawable.profile),
                     contentDescription = "profile",
                     modifier = Modifier
                         .padding(end = 16.dp)
@@ -114,8 +113,7 @@ fun Home(
                         .clip(CircleShape)
                         .clickable {
                             navController.navigate(com.example.littlelemonrestaurant.Profile.route)
-                        }
-                )
+                        })
             }
             Spacer(modifier = Modifier.height(10.dp))
             Box(
@@ -129,12 +127,10 @@ fun Home(
                     modifier = Modifier
                         .fillMaxHeight(0.75f)
                         .fillMaxWidth(0.5f)
-                        .align(Alignment.TopStart),
-                    verticalArrangement = Arrangement.Top
+                        .align(Alignment.TopStart), verticalArrangement = Arrangement.Top
                 ) {
                     Text(
-                        text = "Little Lemon",
-                        style = TextStyle(
+                        text = "Little Lemon", style = TextStyle(
                             fontSize = 40.sp,
                             fontFamily = Markazi,
                             fontWeight = FontWeight(700),
@@ -142,14 +138,12 @@ fun Home(
                         )
                     )
                     Text(
-                        text = "Chicago",
-                        style = TextStyle(
+                        text = "Chicago", style = TextStyle(
                             fontSize = 32.sp,
                             fontFamily = Markazi,
                             fontWeight = FontWeight(400),
                             color = Color(0xFFEDEFEE),
-                        ),
-                        modifier = Modifier.offset(y = (-15).dp)
+                        ), modifier = Modifier.offset(y = (-15).dp)
                     )
                     Text(
                         text = "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.",
@@ -170,36 +164,28 @@ fun Home(
                         .size(height = 152.dp, width = 143.dp)
                         .padding(bottom = 16.dp)
                 )
-                TextField(
-                    value = searchText,
-                    onValueChange = {
-                        searchText = it
-                    },
-                    placeholder = {
-                        Text(text = "Enter search phrase")
-                    },
-                    leadingIcon = {
-                        Image(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "search icon"
-                        )
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
+                TextField(value = searchText, onValueChange = {
+                    searchText = it
+                }, placeholder = {
+                    Text(text = "Enter search phrase")
+                }, leadingIcon = {
+                    Image(
+                        imageVector = Icons.Default.Search, contentDescription = "search icon"
+                    )
+                }, modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
 
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "ORDER FOR DELIVERY!",
-                style = TextStyle(
+                text = "ORDER FOR DELIVERY!", style = TextStyle(
                     fontSize = 25.sp,
                     fontFamily = Markazi,
                     fontWeight = FontWeight(700),
                     color = Color.Black
-                ),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                ), modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(5.dp))
             Row(
@@ -209,45 +195,35 @@ fun Home(
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState())
             ) {
-                FilterChip(
-                    selected = selectedFilterType.name == "All",
-                    onClick = {
-                        selectedFilterType = FilterType.All
-                    },
-                    label = {
-                        Text(
-                            text = "All",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                fontFamily = Karla,
-                                fontWeight = FontWeight(700),
-                                color = Color.Black,
-                            )
+                FilterChip(selected = selectedFilterType.name == "All", onClick = {
+                    selectedFilterType = FilterType.All
+                }, label = {
+                    Text(
+                        text = "All", style = TextStyle(
+                            fontSize = 15.sp,
+                            fontFamily = Karla,
+                            fontWeight = FontWeight(700),
+                            color = Color.Black,
                         )
-                    })
-                FilterChip(
-                    selected = selectedFilterType.name == "Starters",
-                    onClick = {
-                        selectedFilterType = FilterType.Starters
-                    },
-                    label = {
-                        Text(
-                            text = "Starters",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                fontFamily = Karla,
-                                fontWeight = FontWeight(700),
-                                color = Color.Black,
-                            )
+                    )
+                })
+                FilterChip(selected = selectedFilterType.name == "Starters", onClick = {
+                    selectedFilterType = FilterType.Starters
+                }, label = {
+                    Text(
+                        text = "Starters", style = TextStyle(
+                            fontSize = 15.sp,
+                            fontFamily = Karla,
+                            fontWeight = FontWeight(700),
+                            color = Color.Black,
                         )
-                    })
-                FilterChip(
-                    selected = selectedFilterType.name == "Desserts",
+                    )
+                })
+                FilterChip(selected = selectedFilterType.name == "Desserts",
                     onClick = { selectedFilterType = FilterType.Dessert },
                     label = {
                         Text(
-                            text = "Desserts",
-                            style = TextStyle(
+                            text = "Desserts", style = TextStyle(
                                 fontSize = 15.sp,
                                 fontFamily = Karla,
                                 fontWeight = FontWeight(700),
@@ -255,13 +231,11 @@ fun Home(
                             )
                         )
                     })
-                FilterChip(
-                    selected = selectedFilterType.name == "Mains",
+                FilterChip(selected = selectedFilterType.name == "Mains",
                     onClick = { selectedFilterType = FilterType.Mains },
                     label = {
                         Text(
-                            text = "Mains",
-                            style = TextStyle(
+                            text = "Mains", style = TextStyle(
                                 fontSize = 15.sp,
                                 fontFamily = Karla,
                                 fontWeight = FontWeight(700),
@@ -271,7 +245,7 @@ fun Home(
                     })
             }
             val searchedItems =
-                filteredMenu.filter { it.title.contains(searchText, ignoreCase = true) }
+                filteredMenu.filter { it.title.contains(searchText.trim(), ignoreCase = true) }
             MenuItemsList(searchedItems)
         }
 
@@ -289,70 +263,62 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
             .fillMaxHeight()
             .padding(top = 20.dp, start = 16.dp, end = 16.dp)
     ) {
-        items(
-            items = items,
-            itemContent = { menuItem ->
-                Divider(
+        items(items = items, itemContent = { menuItem ->
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp),
+                thickness = 1.dp,
+                color = Color(0xFF444444)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 5.dp),
-                    thickness = 1.dp,
-                    color = Color(0xFF444444)
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
+                        .padding(5.dp)
+                        .weight(0.75f)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(5.dp)
-                            .weight(0.75f)
-                            .fillMaxWidth(),
-                        verticalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        Text(
-                            text = menuItem.title,
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                fontFamily = Markazi,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF000000),
-                                textAlign = TextAlign.Center,
-                            )
+                    Text(
+                        text = menuItem.title, style = TextStyle(
+                            fontSize = 15.sp,
+                            fontFamily = Markazi,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF000000),
+                            textAlign = TextAlign.Center,
                         )
-                        Text(
-                            text = menuItem.description,
-                            style = TextStyle(
-                                fontSize = 13.sp,
-                                fontFamily = Karla,
-                                fontWeight = FontWeight(300),
-                                color = Color(0xFF444444),
-                            ),
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = menuItem.description, style = TextStyle(
+                            fontSize = 13.sp,
+                            fontFamily = Karla,
+                            fontWeight = FontWeight(300),
+                            color = Color(0xFF444444),
+                        ), maxLines = 2, overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = "$${menuItem.price}", style = TextStyle(
+                            fontSize = 13.sp,
+                            fontFamily = Karla,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF444444),
                         )
-                        Text(
-                            text = "$${menuItem.price}",
-                            style = TextStyle(
-                                fontSize = 13.sp,
-                                fontFamily = Karla,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF444444),
-                            )
-                        )
-                    }
-                    GlideImage(
-                        model = menuItem.image,
-                        contentDescription = menuItem.title,
-                        modifier = Modifier
-                            .padding(5.dp)
-                            .weight(0.25f)
-                            .size(60.dp)
-                            .clip(RectangleShape)
                     )
                 }
+                GlideImage(
+                    model = menuItem.image,
+                    contentDescription = menuItem.title,
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .weight(0.25f)
+                        .size(60.dp)
+                        .clip(RectangleShape)
+                )
             }
-        )
+        })
     }
 }
 
