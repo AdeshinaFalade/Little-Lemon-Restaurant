@@ -1,5 +1,6 @@
 package com.example.littlelemonrestaurant.components
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -70,8 +72,10 @@ fun AlternatingSwappingCircles(
     }
 }
 
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun DisplayLoader(modifier: Modifier = Modifier) {
+    val mutableInteractionSource = remember { MutableInteractionSource() }
     Surface(
         color = Color.Black.copy(alpha = 0.6f),
         modifier = Modifier.fillMaxSize()
@@ -81,7 +85,7 @@ fun DisplayLoader(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .background(Color(0x00000000))
                 .clickable(
-                    interactionSource = MutableInteractionSource(),
+                    interactionSource = mutableInteractionSource,
                     indication = null,
                     onClick = {}
                 ),

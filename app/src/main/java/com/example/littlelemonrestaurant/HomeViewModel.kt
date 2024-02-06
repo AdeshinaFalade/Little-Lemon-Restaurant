@@ -76,6 +76,12 @@ class HomeViewModel(private val appDatabase: AppDatabase) : ViewModel() {
         appDatabase.menuItemDao().insertAll(*menuItemsRoom.toTypedArray())
     }
 
+    fun deleteMenuItem(menuItem: MenuItemRoom) {
+        viewModelScope.launch (Dispatchers.IO) {
+            appDatabase.menuItemDao().deleteItem(menuItem)
+        }
+    }
+
     override fun onCleared() {
         httpClient.close()
     }

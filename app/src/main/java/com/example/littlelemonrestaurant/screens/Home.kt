@@ -22,12 +22,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -48,6 +50,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -246,7 +250,7 @@ fun Home(
             }
             val searchedItems =
                 filteredMenu.filter { it.title.contains(searchText.trim(), ignoreCase = true) }
-            MenuItemsList(searchedItems)
+            MenuItemsList(searchedItems, viewModel::deleteMenuItem)
         }
 
         if (loading) {
@@ -257,14 +261,30 @@ fun Home(
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun MenuItemsList(items: List<MenuItemRoom>) {
+private fun MenuItemsList(
+    items: List<MenuItemRoom>,
+    onDelete: (MenuItemRoom) -> Unit
+) {
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+    var selectedMenuItemRoom by remember {
+        mutableStateOf<MenuItemRoom?>(null)
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxHeight()
-            .padding(top = 20.dp, start = 16.dp, end = 16.dp)
+            .padding(top = 20.dp, start = 16.dp, end = 16.dp),
     ) {
-        items(items = items, itemContent = { item ->
-            SwipeDeleteContainer(item = item, onDelete = {}) {menuItem ->
+        items(
+            items = items,
+            key = {
+                it.id
+            }) { item ->
+            SwipeDeleteContainer(item = item, onDelete = {
+                selectedMenuItemRoom = it
+                showDialog = true
+            }) { menuItem ->
                 Column(
                     modifier = Modifier
                         .background(color = MaterialTheme.colorScheme.background)
@@ -328,7 +348,32 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
 
             }
 
-        })
+        }
+    }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            ),
+            dismissButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                }) {
+                    Text("Cancel")
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    selectedMenuItemRoom?.let(onDelete)
+                }) {
+                    Text("Delete")
+                }
+            },
+            title = {Text("Delete this item?")},
+            text = {Text("This is permanent and can't be undone")}
+        )
     }
 }
 

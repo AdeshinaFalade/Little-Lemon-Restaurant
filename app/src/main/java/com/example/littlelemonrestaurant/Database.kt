@@ -3,6 +3,7 @@ package com.example.littlelemonrestaurant
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Database
+import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
@@ -30,6 +31,8 @@ interface MenuItemDao {
     fun isEmpty(): Boolean
     @Query("SELECT * FROM MenuItemRoom WHERE category LIKE :category")
     fun getByCategory(category: String): LiveData<List<MenuItemRoom>>
+    @Delete
+    fun deleteItem(menuItem: MenuItemRoom)
 }
 
 @Database(entities = [MenuItemRoom::class], version = 1)
