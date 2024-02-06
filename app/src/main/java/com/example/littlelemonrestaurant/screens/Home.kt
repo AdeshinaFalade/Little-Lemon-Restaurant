@@ -22,9 +22,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -59,6 +61,7 @@ import com.example.littlelemonrestaurant.ui.theme.DeepGreen
 import com.example.littlelemonrestaurant.ui.theme.Karla
 import com.example.littlelemonrestaurant.ui.theme.Markazi
 import com.example.littlelemonrestaurant.ui.theme.Yellow
+import com.example.swipetodelete.SwipeDeleteContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -260,61 +263,71 @@ private fun MenuItemsList(items: List<MenuItemRoom>) {
             .fillMaxHeight()
             .padding(top = 20.dp, start = 16.dp, end = 16.dp)
     ) {
-        items(items = items, itemContent = { menuItem ->
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 5.dp),
-                thickness = 1.dp,
-                color = Color(0xFF444444)
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
+        items(items = items, itemContent = { item ->
+            SwipeDeleteContainer(item = item, onDelete = {}) {menuItem ->
                 Column(
                     modifier = Modifier
-                        .padding(5.dp)
-                        .weight(0.75f)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceEvenly
+                        .background(color = MaterialTheme.colorScheme.background)
                 ) {
-                    Text(
-                        text = menuItem.title, style = TextStyle(
-                            fontSize = 15.sp,
-                            fontFamily = Markazi,
-                            fontWeight = FontWeight(700),
-                            color = Color(0xFF000000),
-                            textAlign = TextAlign.Center,
+                    Divider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 5.dp),
+                        thickness = 1.dp,
+                        color = Color(0xFF444444)
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .weight(0.75f)
+                                .fillMaxWidth(),
+                            verticalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Text(
+                                text = menuItem.title, style = TextStyle(
+                                    fontSize = 15.sp,
+                                    fontFamily = Markazi,
+                                    fontWeight = FontWeight(700),
+                                    color = Color(0xFF000000),
+                                    textAlign = TextAlign.Center,
+                                )
+                            )
+                            Text(
+                                text = menuItem.description, style = TextStyle(
+                                    fontSize = 13.sp,
+                                    fontFamily = Karla,
+                                    fontWeight = FontWeight(300),
+                                    color = Color(0xFF444444),
+                                ), maxLines = 2, overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = "$${menuItem.price}", style = TextStyle(
+                                    fontSize = 13.sp,
+                                    fontFamily = Karla,
+                                    fontWeight = FontWeight(700),
+                                    color = Color(0xFF444444),
+                                )
+                            )
+                        }
+                        GlideImage(
+                            model = menuItem.image,
+                            contentDescription = menuItem.title,
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .weight(0.25f)
+                                .size(60.dp)
+                                .clip(RectangleShape)
                         )
-                    )
-                    Text(
-                        text = menuItem.description, style = TextStyle(
-                            fontSize = 13.sp,
-                            fontFamily = Karla,
-                            fontWeight = FontWeight(300),
-                            color = Color(0xFF444444),
-                        ), maxLines = 2, overflow = TextOverflow.Ellipsis
-                    )
-                    Text(
-                        text = "$${menuItem.price}", style = TextStyle(
-                            fontSize = 13.sp,
-                            fontFamily = Karla,
-                            fontWeight = FontWeight(700),
-                            color = Color(0xFF444444),
-                        )
-                    )
+                    }
                 }
-                GlideImage(
-                    model = menuItem.image,
-                    contentDescription = menuItem.title,
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .weight(0.25f)
-                        .size(60.dp)
-                        .clip(RectangleShape)
-                )
+
             }
+
         })
     }
 }
